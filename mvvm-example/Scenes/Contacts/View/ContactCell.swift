@@ -67,8 +67,8 @@ extension ContactCell: ViewProtocol {
             iconImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            iconImageView.heightAnchor.constraint(equalToConstant: 50),
-            iconImageView.widthAnchor.constraint(equalToConstant: 50),
+            iconImageView.heightAnchor.constraint(equalToConstant: 80),
+            iconImageView.widthAnchor.constraint(equalToConstant: 80),
             
             nameLabel.heightAnchor.constraint(equalToConstant: 20),
             nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
