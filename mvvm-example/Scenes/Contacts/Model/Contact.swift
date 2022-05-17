@@ -7,8 +7,7 @@
 
 import Foundation
 
-class Contact: Decodable {
-    
+struct Contact: Decodable {
     var id: Int
     var name: String
     var photoURL: String

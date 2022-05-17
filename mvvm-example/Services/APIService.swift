@@ -14,8 +14,8 @@ final class APIService {
     init() {
         
     }
-        
-    func feachData(completion: @escaping ([Contact]) -> (),
+    
+    func fetchData(completion: @escaping ([Contact]) -> (),
                    completionError: @escaping (Error) -> ()) {
         guard let url = URL(string: mockURL) else {
             completionError(NSError(domain: "url unavailable", code: 1))
@@ -41,6 +41,29 @@ final class APIService {
             } catch let error {
                 completionError(error)
             }
+        }.resume()
+    }
+    
+    func fetchImage(url: String,
+                    completion: @escaping (Data) -> (),
+                    completionError: @escaping (Error) -> ()) {
+        guard let url = URL(string: url) else {
+            completionError(NSError(domain: "url unavailable", code: 1))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                completionError(error)
+            }
+            
+            guard let imageData = data else {
+                completionError(NSError(domain: "empty respose", code: 2))
+                return
+            }
+            
+            completion(imageData)
+            
         }.resume()
     }
 }

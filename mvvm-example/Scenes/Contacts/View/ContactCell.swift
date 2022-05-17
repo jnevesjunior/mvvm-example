@@ -19,6 +19,7 @@ final class ContactCell: UITableViewCell {
     
     lazy var iconImageView: UIImageView = {
         var view = UIImageView()
+        view.backgroundColor = .gray
         
         return view
     }()
@@ -35,8 +36,16 @@ final class ContactCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setContact(with contact: Contact) {
-        nameLabel.text = contact.name
+    func setupData(name: String) {
+        nameLabel.text = name
+    }
+    
+    func setupPhotoImage(with image: UIImage) {
+        DispatchQueue.main.async { [weak iconImageView] in
+            UIView.animate(withDuration: 0.5, animations: { [weak iconImageView] in
+                iconImageView?.image = image
+            })
+        }
     }
 
 }
@@ -58,8 +67,8 @@ extension ContactCell: ViewProtocol {
             iconImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            iconImageView.heightAnchor.constraint(equalToConstant: 50),
-            iconImageView.widthAnchor.constraint(equalToConstant: 50),
+            iconImageView.heightAnchor.constraint(equalToConstant: 200),
+            iconImageView.widthAnchor.constraint(equalToConstant: 200),
             
             nameLabel.heightAnchor.constraint(equalToConstant: 20),
             nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),

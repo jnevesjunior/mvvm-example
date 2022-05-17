@@ -8,8 +8,8 @@
 import UIKit
 import SwiftUI
 
-protocol ContactsViewControllerProtocol {
-    func reloadContacts(_ contacts: [Contact])
+protocol ContactsViewControllerProtocol: AnyObject {
+    func reloadContacts()
     func isLoading(_ isLoading: Bool)
 }
 
@@ -41,7 +41,6 @@ final class ContactsViewController: UIViewController {
     }()
     
     var viewModel: ContactsViewModelProtocol?
-    private var contacts = [Contact]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +48,7 @@ final class ContactsViewController: UIViewController {
         setupViews()
         
         viewModel?.delegate = self
-        viewModel?.feachData()
+        viewModel?.fetchData()
     }
     
 }
@@ -60,26 +59,27 @@ extension ContactsViewController: UITableViewDelegate {
 
 extension ContactsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
+        return viewModel?.getContactsCount() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactCell.identifier, for: indexPath) as? ContactCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactCell.identifier, for: indexPath) as? ContactCell,
+              let viewModel = viewModel else {
             return UITableViewCell()
         }
         
-        let contact = contacts[indexPath.row]
-        cell.setContact(with: contact)
+        cell.setupData(name: viewModel.getNameByRow(indexPath.row))
+        
+        viewModel.getPhotoByRow(indexPath.row, completion: { image in
+            cell.setupPhotoImage(with: image)
+        })
         
         return cell
     }
 }
 
 extension ContactsViewController: ContactsViewControllerProtocol {
-    
-    func reloadContacts(_ contacts: [Contact]) {
-        self.contacts = contacts
-        
+    func reloadContacts() {
         DispatchQueue.main.async { [weak self] in
             self?.contactsTableView.reloadData()
         }
