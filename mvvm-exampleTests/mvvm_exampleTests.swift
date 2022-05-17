@@ -2,7 +2,7 @@
 //  mvvm_exampleTests.swift
 //  mvvm-exampleTests
 //
-//  Created by Cora on 16/05/22.
+//  Created by Jose Neves on 16/05/22.
 //
 
 import XCTest
