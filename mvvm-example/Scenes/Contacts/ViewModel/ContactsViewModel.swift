@@ -39,12 +39,20 @@ final class ContactsViewModel: ContactsViewModelProtocol {
         delegate?.isLoading(true)
         
         apiService.fetchData(completion: { [weak self] contacts in
-            self?.contacts = contacts
+            guard let self = self else { return }
+            self.contacts = contacts
             
-            self?.delegate?.reloadContacts()
-            self?.delegate?.isLoading(false)
-        }, completionError: { [weak self] error in
-            self?.delegate?.isLoading(false)
+            guard let delegate = self.delegate else { return }
+            DispatchQueue.main.async { [weak delegate] in
+                delegate?.reloadContacts()
+                delegate?.isLoading(false)
+            }
+            
+        }, completionError: { [weak delegate] error in
+            DispatchQueue.main.async { [weak delegate] in
+                delegate?.isLoading(false)
+            }
+            
             print("----Error----")
             print(error)
             print("-------------")
@@ -84,7 +92,10 @@ final class ContactsViewModel: ContactsViewModelProtocol {
                               completion: { [weak self] imageData in
             if let image = UIImage(data: imageData) {
                 self?.loadedImages.append(LoadedImage(id: contact.id, image: image))
-                completion(image)
+                
+                DispatchQueue.main.async {
+                    completion(image)
+                }
             }
         }, completionError: { [weak self] error in
             self?.delegate?.isLoading(false)

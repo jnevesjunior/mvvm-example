@@ -41,11 +41,9 @@ final class ContactCell: UITableViewCell {
     }
     
     func setupPhotoImage(with image: UIImage) {
-        DispatchQueue.main.async { [weak iconImageView] in
-            UIView.animate(withDuration: 0.5, animations: { [weak iconImageView] in
-                iconImageView?.image = image
-            })
-        }
+        UIView.animate(withDuration: 0.5, animations: { [weak iconImageView] in
+            iconImageView?.image = image
+        })
     }
 
 }

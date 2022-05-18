@@ -80,18 +80,14 @@ extension ContactsViewController: UITableViewDataSource {
 
 extension ContactsViewController: ContactsViewControllerProtocol {
     func reloadContacts() {
-        DispatchQueue.main.async { [weak self] in
-            self?.contactsTableView.reloadData()
-        }
+        contactsTableView.reloadData()
     }
     
     func isLoading(_ isLoading: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            UIView.animate(withDuration: 0.5, animations: { [weak self] in
-                self?.activityIndicator.alpha = isLoading ? 1 : 0
-                self?.contactsTableView.alpha = isLoading ? 0 : 1
-            })
-        }
+        UIView.animate(withDuration: 0.5, animations: { [weak self] in
+            self?.activityIndicator.alpha = isLoading ? 1 : 0
+            self?.contactsTableView.alpha = isLoading ? 0 : 1
+        })
     }
 }
 
