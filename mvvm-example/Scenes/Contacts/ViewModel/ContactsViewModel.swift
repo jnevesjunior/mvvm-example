@@ -21,7 +21,7 @@ final class ContactsViewModel: ContactsViewModelProtocol {
     
     weak var delegate: ContactsViewControllerProtocol?
     
-    private var apiService: APIService!
+    private var apiService: APIServiceProtocol!
     private var contacts = [Contact]()
     
     private var loadedImages = [LoadedImage]()
@@ -31,8 +31,8 @@ final class ContactsViewModel: ContactsViewModelProtocol {
         var image: UIImage?
     }
     
-    init() {
-        self.apiService = APIService()
+    init(with apiService: APIServiceProtocol = APIService()) {
+        self.apiService = apiService
     }
     
     func fetchData() {

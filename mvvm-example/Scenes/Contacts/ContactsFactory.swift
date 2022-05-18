@@ -9,7 +9,13 @@ import Foundation
 
 struct ContactsFactory {
     
-    static func build(with viewModel: ContactsViewModelProtocol? = ContactsViewModel()) -> ContactsViewController {
+    static func build(with viewModel: ContactsViewModelProtocol? = nil,
+                      apiService: APIServiceProtocol = APIService()) -> ContactsViewController {
+        var viewModel = viewModel
+        if viewModel == nil {
+            viewModel = ContactsViewModel(with: apiService)
+        }
+        
         let view = ContactsViewController()
         view.viewModel = viewModel
         

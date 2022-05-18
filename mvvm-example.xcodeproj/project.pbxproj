@@ -12,7 +12,7 @@
 		874496572832E20E005C69A5 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874496562832E20E005C69A5 /* ContactsViewController.swift */; };
 		8744965C2832E213005C69A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8744965B2832E213005C69A5 /* Assets.xcassets */; };
 		8744965F2832E213005C69A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8744965D2832E213005C69A5 /* LaunchScreen.storyboard */; };
-		8744966A2832E213005C69A5 /* mvvm_exampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874496692832E213005C69A5 /* mvvm_exampleTests.swift */; };
+		8744966A2832E213005C69A5 /* ContactsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874496692832E213005C69A5 /* ContactsViewModelTests.swift */; };
 		874496742832E213005C69A5 /* mvvm_exampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874496732832E213005C69A5 /* mvvm_exampleUITests.swift */; };
 		874496762832E213005C69A5 /* mvvm_exampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874496752832E213005C69A5 /* mvvm_exampleUITestsLaunchTests.swift */; };
 		874496872832ECDE005C69A5 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874496862832ECDE005C69A5 /* ContactsViewModel.swift */; };
@@ -52,7 +52,7 @@
 		8744965E2832E213005C69A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		874496602832E213005C69A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		874496652832E213005C69A5 /* mvvm-exampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mvvm-exampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		874496692832E213005C69A5 /* mvvm_exampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvvm_exampleTests.swift; sourceTree = "<group>"; };
+		874496692832E213005C69A5 /* ContactsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewModelTests.swift; sourceTree = "<group>"; };
 		8744966F2832E213005C69A5 /* mvvm-exampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mvvm-exampleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		874496732832E213005C69A5 /* mvvm_exampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvvm_exampleUITests.swift; sourceTree = "<group>"; };
 		874496752832E213005C69A5 /* mvvm_exampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvvm_exampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 		874496682832E213005C69A5 /* mvvm-exampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				874496692832E213005C69A5 /* mvvm_exampleTests.swift */,
+				874496692832E213005C69A5 /* ContactsViewModelTests.swift */,
 			);
 			path = "mvvm-exampleTests";
 			sourceTree = "<group>";
@@ -364,7 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8744966A2832E213005C69A5 /* mvvm_exampleTests.swift in Sources */,
+				8744966A2832E213005C69A5 /* ContactsViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

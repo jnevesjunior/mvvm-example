@@ -7,13 +7,18 @@
 
 import Foundation
 
-final class APIService {
+protocol APIServiceProtocol {
+    func fetchData(completion: @escaping ([Contact]) -> (),
+                   completionError: @escaping (Error) -> ())
+    
+    func fetchImage(url: String,
+                    completion: @escaping (Data) -> (),
+                    completionError: @escaping (Error) -> ())
+}
+
+struct APIService: APIServiceProtocol {
     
     private let mockURL = "https://run.mocky.io/v3/d26d86ec-fb82-48a7-9c73-69e2cb728070"
-    
-    init() {
-        
-    }
     
     func fetchData(completion: @escaping ([Contact]) -> (),
                    completionError: @escaping (Error) -> ()) {
