@@ -1,5 +1,5 @@
 //
-//  ContactsViewModelTests.swift
+//  ContactsViewModelStub.swift
 //  mvvm-exampleTests
 //
 //  Created by Jose Neves on 16/05/22.
@@ -8,19 +8,24 @@
 import XCTest
 @testable import mvvm_example
 
-class ContactsViewModelTests: XCTestCase {
+final class ContactsViewModelStub: XCTestCase {
     
     var sut: ContactsViewModel!
     var apiServiceMock: APIServiceMock!
+    var viewSpy: ContactsViewSpy!
     
     override func setUp() {
         apiServiceMock = APIServiceMock()
         sut = ContactsViewModel(with: apiServiceMock)
+        
+        viewSpy = ContactsViewSpy()
+        sut.delegate = viewSpy
     }
 
     override func tearDown() {
         sut = nil
         apiServiceMock = nil
+        viewSpy = nil
     }
     
     func testFetchContacts() {
@@ -32,7 +37,23 @@ class ContactsViewModelTests: XCTestCase {
         sut.fetchData()
         
         // Then
+        XCTAssertTrue(viewSpy.isLoadingIsLoadingValue)
+        
         XCTAssertEqual(sut.getContactsCount(), 2)
+        
+        let expectation = expectation(description: "reload items on screen")
+        DispatchQueue.main.async(flags: .barrier) { [weak viewSpy] in
+            guard let viewSpy = viewSpy else { return }
+            
+            XCTAssertEqual(viewSpy.reloadContactsCalls, 1)
+            
+            XCTAssertFalse(viewSpy.isLoadingIsLoadingValue)
+            XCTAssertEqual(viewSpy.isLoadingCalls, 2)
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1)
     }
     
     func testFetchContactsWithError() {
@@ -43,7 +64,22 @@ class ContactsViewModelTests: XCTestCase {
         sut.fetchData()
         
         // Then
+        XCTAssertTrue(viewSpy.isLoadingIsLoadingValue)
+        
         XCTAssertEqual(sut.getContactsCount(), 0)
+        
+        let expectation = expectation(description: "reload items on screen")
+        DispatchQueue.main.async(flags: .barrier) { [weak viewSpy] in
+            guard let viewSpy = viewSpy else { return }
+            XCTAssertEqual(viewSpy.reloadContactsCalls, 0)
+            
+            XCTAssertFalse(viewSpy.isLoadingIsLoadingValue)
+            XCTAssertEqual(viewSpy.isLoadingCalls, 2)
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1)
     }
     
     func testGetNameByRow() {
